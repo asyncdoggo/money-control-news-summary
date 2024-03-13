@@ -1,0 +1,17 @@
+-f https://download.pytorch.org/whl/torch_stable.html
+torch
+sentencepiece
+protobuf<=3.20.1
+nltk
+absl-py
+rouge-score
+pandas
+transformers>=4.27.0
+wandb
+makefun>=1.14.0
+beautifulsoup4
+requests
+faiss-cpu
+fastapi
+uvicorn
+jinja2
