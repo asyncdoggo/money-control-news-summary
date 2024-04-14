@@ -14,8 +14,7 @@ class Summarizer:
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         modelname = "abertsch/unlimiformer-bart-govreport-alternating"
         self.tokenizer = AutoTokenizer.from_pretrained("facebook/bart-base")
-        self.model = BartForConditionalGeneration.from_pretrained(modelname)
-        self.model.to(self.device)
+        model = BartForConditionalGeneration.from_pretrained(modelname)
         self.defaults = UnlimiformerArguments()
         self.unlimiformer_kwargs = {
                     'layer_begin': self.defaults.layer_begin, 
@@ -33,14 +32,23 @@ class Summarizer:
                     'gpu_datastore': self.defaults.gpu_datastore,
                     'gpu_index': self.defaults.gpu_index
         }
-        self.model = Unlimiformer.convert_model(self.model, **self.unlimiformer_kwargs)
+        self.model = Unlimiformer.convert_model(model, **self.unlimiformer_kwargs)
         self.model.to(self.device)
+        self.model.eval()
 
     def summarize(self, text, max_length=512):
         text_tokenized = self.tokenizer(text, truncation=False, return_tensors="pt")
         text_tokenized.to(self.device)
-        return self.tokenizer.batch_decode(self.model.generate(**text_tokenized, max_length=max_length), ignore_special_tokens=True)[0]
+        summary_ids = self.model.generate(**text_tokenized, max_length=max_length)
+        summary = self.tokenizer.decode(summary_ids[0], skip_special_tokens=True, clean_up_tokenization_spaces=True)
+
+        del text_tokenized
+        del summary_ids
+
+        summary = summary.replace("GAO", "We")
+        return summary
     
+
 
 if __name__ == "__main__":
     summarizer = Summarizer()

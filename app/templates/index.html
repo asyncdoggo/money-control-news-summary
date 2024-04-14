@@ -6,13 +6,19 @@
     <title>Document</title>
     <link href="static/css/styles.css" rel="stylesheet">
     <style>
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
         .container {
-            margin: 0 auto;
-            width: 80%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         .news-item {
             margin-bottom: 20px;
-            padding: 20px;
             border: 1px solid #ccc;
         }
         .news-title {
@@ -37,51 +43,84 @@
             font-size: 16px;
             margin: 4px 2px;
             cursor: pointer;
+            border-radius: 4px;
         }
+
+        .news_open:hover{
+            background-color: #38653a;
+        }
+
+        .title{
+            text-align: left;
+            font-family: Arial, Helvetica, sans-serif;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            border: 2px solid #ccc;
+            width: 100%;
+            margin-bottom: 20px;
+            padding-left: 5px;
+        }
+
+        .nav{
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #page_number{
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        /* prev button */
+        #prev{
+            background-color: #f44336; /* Red */
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+        #prev:hover{
+            background-color: #8a3535;
+            cursor: pointer;
+        }
+
+        /* next button */
+        #next{
+            background-color: #4CAF50; /* Green */
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+        #next:hover{
+            background-color: #38653a;
+            cursor: pointer;
+        }
+
+        #news-list{
+            list-style-type: none;
+            padding: 0;
+            width: 80%;
+        }
+
+
     </style>
 
 </head>
 <body>
     <div class="container">
-        <h1>News Summary</h1>
+        <div class="title">
+            <h1>Moneycontrol News Summary</h1>
+        </div>
         <ul id="news-list">
-            
         </ul>
-    </div>
-    <!-- <script>
-        
-        const newsList = document.getElementById('news-list');
-        const news = [
-            {
-                title: 'Title 1',
-                summary: 'Summary 1',
-                link: 'http://example.com/1'
-            },
-            {
-                title: 'Title 2',
-                summary: 'Summary 2',
-                link: 'http://example.com/2'
-            },
-            {
-                title: 'Title 3',
-                summary: 'Summary 3',
-                link: 'http://example.com/3'
-            }
-        ];
 
-        news.forEach((item) => {
-            const li = document.createElement('li');
-            li.classList.add('news-list');
-            li.innerHTML = `
-                <li class="news-item">
-                <h2 class="news-title">${item.title}</h2>
-                <p class="news-summary">${item.summary}</p>
-                <a href="${item.link}" class="news-link">Read more</a>
-            </li>
-            `;
-            newsList.appendChild(li);
-        });
-    </script> -->
+        <div class="nav">
+            <button id="prev">Previous</button>
+            <p id="page_number">1</p>
+            <button id="next">Next</button>
+        </div>
+        
+    </div>
+    
 </body>
 <script src="/static/js/index.js"></script>
 
